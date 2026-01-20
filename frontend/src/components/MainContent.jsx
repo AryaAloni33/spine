@@ -1,61 +1,36 @@
-function MainContent({
-  input,
-  setInput,
-  response,
-  sendToBackend,
-  darkMode
-}) {
+export default function MainContent() {
   return (
     <main
       style={{
-        width: "1280px",
-        maxWidth: "100%",
+        padding: "50px",
+        maxWidth: "1366px",
         margin: "0 auto",
-        padding: "40px 24px",
-        boxSizing: "border-box"
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+        gap: "24px",
       }}
     >
-      <h3>SPINE Project UI</h3>
+      <div className="hover-card">
+        <h3>Patient Upload</h3>
+        <p>Upload new patient scans</p>
+      </div>
 
-      <input
-        type="text"
-        placeholder="Type here"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "12px",
-          fontSize: "15px",
-          borderRadius: "4px",
-          boxSizing: "border-box",
-          border: darkMode ? "1px solid #555" : "1px solid #ccc",
-          backgroundColor: darkMode ? "#1e1e1e" : "#ffffff",
-          color: darkMode ? "#ffffff" : "#000000"
-        }}
-      />
+      <div className="hover-card">
+        <h3>Patient Records</h3>
+        <p>View existing patient data</p>
+      </div>
 
-      <br /><br />
-
-      <button
-        onClick={sendToBackend}
-        style={{
-          padding: "10px 20px",
-          borderRadius: "4px",
-          border: "none",
-          cursor: "pointer",
-          backgroundColor: darkMode ? "#3a7afe" : "#2563eb",
-          color: "#ffffff"
-        }}
-      >
-        Send to Backend
-      </button>
-
-      <br /><br />
-
-      <h3>Backend Response:</h3>
-      <p>{response}</p>
+      <div className="hover-card">
+        <h3>Reports</h3>
+        <p>Analysis &amp; results</p>
+      </div>
+      <div className="fact-box">
+        <span>💡</span>
+        <p>
+          Did you know? Early spinal analysis helps detect posture abnormalities
+          before chronic issues develop.
+        </p>
+      </div>
     </main>
   );
 }
-
-export default MainContent;

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@theme-toggles/react": "^4.1.0",
+    "nodemon": "^3.1.11",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
