@@ -1,41 +1,105 @@
-import "@theme-toggles/react/css/Around.css";
-import { Around } from "@theme-toggles/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Header({ darkMode, setDarkMode, spineLogo }) {
+export default function Header({
+  darkMode,
+  setDarkMode,
+  spineLogo,
+  isAuthenticated,
+  userEmail,
+  setIsAuthenticated,
+}) {
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setMenuOpen(false);
+    navigate("/login");
+  };
+
   return (
-    <header style={headerStyle}>
+    <header
+      style={{
+        padding: "16px 32px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
       {/* Logo + Title */}
-      <div style={leftStyle}>
-        <img src={spineLogo} alt="Spine Logo" style={{ height: "48px" }} />
-        <span style={titleStyle}>SPINE</span>
+      <div
+        onClick={() => navigate("/")}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          cursor: "pointer",
+        }}
+      >
+        <img src={spineLogo} alt="SPINE logo" style={{ height: "48px" }} />
+        <h1 style={{ fontSize: "1.6rem" }}>SPINE</h1>
       </div>
 
-      {/* Theme Toggle */}
-      <Around
-        duration={750}
-        toggled={!darkMode}
-        toggle={() => setDarkMode(!darkMode)}
-      />
+      {/* Right side controls */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "16px",
+          position: "relative",
+        }}
+      >
+        {/* Dark / Light toggle (unchanged behavior) */}
+        <button
+          className="theme-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+          title="Toggle theme"
+        >
+          {darkMode ? "☀️" : "🌙"}
+        </button>
+
+        {/* Auth actions */}
+        {!isAuthenticated ? (
+          <>
+            <button onClick={() => navigate("/login")}>Login</button>
+            <button onClick={() => navigate("/register")}>Register</button>
+          </>
+        ) : (
+          <div style={{ position: "relative" }}>
+            {/* User icon */}
+            <div
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "50%",
+                backgroundColor: "#2563eb",
+                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                fontWeight: "600",
+                userSelect: "none",
+              }}
+              title={userEmail}
+            >
+              {userEmail?.charAt(0).toUpperCase()}
+            </div>
+
+            {/* Account dropdown */}
+            {menuOpen && (
+              <div className="account-dropdown">
+                <p className="account-email">{userEmail}</p>
+                <button className="logout-btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </header>
   );
 }
-
-const headerStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "18px 40px",
-  borderBottom: "1px solid #e5e7eb",
-};
-
-const leftStyle = {
-  display: "flex",
-  alignItems: "center",
-  gap: "14px",
-};
-
-const titleStyle = {
-  fontSize: "26px",
-  fontWeight: 700,
-  letterSpacing: "1px",
-};

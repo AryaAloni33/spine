@@ -1,0 +1,403 @@
+/* =========================
+   GLOBAL RESET & BASE
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #1f2937;
+}
+
+/* Dark mode */
+body.dark {
+  background-color: #0f172a;
+  color: #f9fafb;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+body.dark p {
+  color: #d1d5db;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #1e40af;
+}
+
+/* =========================
+   BUTTONS (generic)
+========================= */
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-family: inherit;
+  cursor: pointer;
+  background-color: #c0c3ca;
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #d7dae3;
+}
+
+/* =========================
+   MAIN CONTENT LAYOUT
+========================= */
+
+main {
+  max-width: 1366px;
+  margin: 0 auto;
+  padding: 40px;
+  background: transparent;
+}
+
+/* =========================
+   CARD GRID
+========================= */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.hover-card {
+  background-color: #f5f5f5;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 28px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.hover-card:hover {
+  border-color: #2563eb;
+  background-color: #f9fbff;
+}
+
+body.dark .hover-card {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+body.dark .hover-card:hover {
+  border-color: #3b82f6;
+  background-color: #111827;
+}
+
+.hover-card:active {
+  transform: scale(0.99);
+}
+
+/* =========================
+   THEME TOGGLE
+========================= */
+
+.theme-toggle {
+  color: #1f2937;
+}
+
+body.dark .theme-toggle {
+  color: #f9fafb;
+}
+
+.theme-toggle:hover,
+.theme-toggle svg:hover {
+  background-color: transparent !important;
+}
+
+/* =========================
+   BACKGROUND (ambient)
+========================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(600px at 20% 30%, rgba(37, 99, 235, 0.06), transparent 60%),
+    radial-gradient(800px at 80% 70%, rgba(59, 130, 246, 0.04), transparent 60%);
+  animation: bgFloat 20s ease-in-out infinite alternate;
+}
+
+body.dark::before {
+  background:
+    radial-gradient(
+      600px at 20% 30%,
+      rgba(59, 130, 246, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(800px at 80% 70%, rgba(37, 99, 235, 0.06), transparent 60%);
+}
+
+@keyframes bgFloat {
+  from {
+    transform: translateY(0) translateX(0);
+  }
+  to {
+    transform: translateY(-40px) translateX(20px);
+  }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  border-bottom: 1px solid #000000;
+}
+
+body.dark header {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* =========================
+   AUTH PAGES
+========================= */
+
+.auth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+body.dark .auth-container {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.auth-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+body.dark .auth-form input {
+  background-color: #111827;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.auth-form button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.auth-switch {
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.auth-switch span {
+  color: #2563eb;
+  cursor: pointer;
+}
+
+/* =========================
+   PATIENT UPLOAD
+========================= */
+
+.upload-box {
+  margin-top: 24px;
+  height: 180px;
+  border: 2px dashed #cbd5f5;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    height 0.25s ease;
+}
+
+.upload-box:hover {
+  border-color: #2563eb;
+}
+
+/* Image uploaded → fit content */
+.upload-box.has-image {
+  height: auto;
+  padding: 12px;
+  border-style: solid;
+}
+
+body.dark .upload-box {
+  background-color: #111827;
+  border-color: #374151;
+}
+
+body.dark .upload-box:hover {
+  border-color: #3b82f6;
+}
+
+.upload-title {
+  font-weight: 500;
+}
+
+.upload-subtext {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+body.dark .upload-subtext {
+  color: #9ca3af;
+}
+
+.upload-preview {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 8px;
+}
+
+/* =========================
+   UPLOAD BUTTON
+========================= */
+
+.upload-btn {
+  margin-top: 20px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background-color: #cbd5e1;
+  color: #f2f2f2;
+  cursor: not-allowed;
+  transition: background-color 0.2s ease;
+}
+
+.upload-btn.active {
+  background-color: #0e74e8;
+  cursor: pointer;
+}
+
+.upload-btn.active:hover {
+  background-color: #60a5fa;
+}
+
+body.dark .upload-btn {
+  background-color: #374151;
+  color: #f9fafb;
+}
+
+body.dark .upload-btn.active {
+  background-color: #3b82f6;
+}
+/* =========================
+   HEADER ACTION BUTTONS
+========================= */
+
+header button {
+  background-color: transparent;
+  color: inherit;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+}
+
+header button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+body.dark header button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   ACCOUNT DROPDOWN
+========================= */
+
+.account-dropdown {
+  position: absolute;
+  right: 0;
+  top: 44px;
+  min-width: 240px; /* ⬅️ increased width */
+  padding: 16px; /* ⬅️ more spacing */
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.account-email {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 14px;
+
+  /* 👇 single-line email handling */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: #1f2937;
+}
+
+.logout-btn {
+  width: 100%;
+}
+
+/* Dark mode */
+body.dark .account-dropdown {
+  background-color: #1f2937;
+  border-color: #374151;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .account-email {
+  color: #f9fafb;
+}
